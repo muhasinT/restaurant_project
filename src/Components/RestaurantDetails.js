@@ -36,7 +36,8 @@ function RestaurantDetails() {
                     <h5>{result.address}</h5>
                   </ListGroup.Item>
                 </Col>
-
+                
+              <col></col>
               </Row>
             </Container >
           )
