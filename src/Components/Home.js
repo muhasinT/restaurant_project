@@ -1,28 +1,30 @@
-import { React, useEffect, useState } from 'react';
+import { React, useEffect } from 'react';
 import { Row, Col } from 'react-bootstrap';
 import RestaurentsCard from './RestaurentsCard';
+import { restaurantList } from '../Actions/restaurantAction'
+import { useDispatch, useSelector } from 'react-redux'
 
 function Home() {
-  const [hotel, setHotel] = useState([])
+
+  const dispatch = useDispatch();
+
+  const restaurantReducer = useSelector(state => state.restaurantListData);      // from store 
+  console.log(restaurantReducer);
+  const { myList } = restaurantReducer
+
+
   useEffect(() => {
 
-    const fetchData = async () => {
-      await fetch('./restaurants.json')
-        .then(data => data.json())
-        .then(data => setHotel(data.restaurants)
-
-        )
-    }
-    fetchData();
+    dispatch(restaurantList())
 
   }, [])
 
-  console.log(hotel);
+
   return (
     <Row>
       {
-        hotel.map(data => (
-          <Col sm={6} md={4} lg={3} xl={2}  key={data.id}>
+        myList.map(data => (
+          <Col  md={6} lg={3} xl={3} key={data.id}>
             <RestaurentsCard item={data} />
           </Col>
         ))
